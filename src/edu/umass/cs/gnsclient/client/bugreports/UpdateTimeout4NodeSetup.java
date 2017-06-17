@@ -25,23 +25,23 @@ public class UpdateTimeout4NodeSetup
 	public static final String KEY_NAME			= "attr";
 	
 	public static final long GNS_REQ_TIMEOUT  	= 5000;
-	public static final int GNS_NUM_RETRIES  	= 5;
 	
+	public static int numRetries  				= 1;
 	
 	public static void main(String[] args)
 	{
 		int numGUIDs = Integer.parseInt(args[0]);
 		int numUpdates = Integer.parseInt(args[1]);
+		numRetries = Integer.parseInt(args[2]);
 		
 		GNSClient gnsClient;
 		GuidEntry[] guidEntryArray = new GuidEntry[numGUIDs];
-		
 		
 		try 
 		{
 			gnsClient = new GNSClient();
 			gnsClient = gnsClient.setForcedTimeout(GNS_REQ_TIMEOUT);
-			gnsClient = gnsClient.setNumRetriesUponTimeout(GNS_NUM_RETRIES);
+			gnsClient = gnsClient.setNumRetriesUponTimeout(numRetries);
 		} catch (IOException e) 
 		{
 			System.out.println("GNS client connection failed");
