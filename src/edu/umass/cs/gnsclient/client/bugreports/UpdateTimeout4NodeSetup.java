@@ -20,13 +20,13 @@ import edu.umass.cs.gnscommon.exceptions.client.ClientException;
  */
 public class UpdateTimeout4NodeSetup 
 {
-	public static final String ALIAS_PREFIX		= "GUID";
 	public static final String ALIAS_SUFFIX		= "@gmail.com";
 	public static final String KEY_NAME			= "attr";
 	
 	public static final long GNS_REQ_TIMEOUT  	= 5000;
 	
 	public static int numRetries  				= 1;
+	public static String aliasPrefix			= "GUID";
 	
 	public static void main(String[] args)
 	{
@@ -34,6 +34,12 @@ public class UpdateTimeout4NodeSetup
 		int numUpdates = Integer.parseInt(args[1]);
 		numRetries = Integer.parseInt(args[2]);
 		
+		if(args.length >= 4 )
+		{
+			aliasPrefix = args[3];
+		}
+		
+			
 		GNSClient gnsClient;
 		GuidEntry[] guidEntryArray = new GuidEntry[numGUIDs];
 		
@@ -53,7 +59,7 @@ public class UpdateTimeout4NodeSetup
 		
 		for(int i=0; i<numGUIDs; i++)
 		{
-			String alias = ALIAS_PREFIX+i+ALIAS_SUFFIX;
+			String alias = aliasPrefix+i+ALIAS_SUFFIX;
 			try 
 			{
 				gnsClient.execute(GNSCommand.createAccount(alias));
